@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!--
+  ~ Copyright © 2021 Max Mage. All rights reserved.
+  ~ See LICENSE.txt for license details.
+  -->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Config\Model\Config\Structure\Element\Field">
+        <plugin name="max_mage_plugin_add_save_button_to_field" type="MaxMage\SaveConfig\Plugin\ConfigFieldPlugin" sortOrder="100" disabled="false" />
+    </type>
+
+    <preference for="Magento\Config\Block\System\Config\Form\Fieldset" type="MaxMage\SaveConfig\Plugin\Block\System\Config\Form\FieldsetPlugin" />
+</config>

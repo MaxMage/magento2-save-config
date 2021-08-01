@@ -1,0 +1,92 @@
+<?php
+/**
+ * Copyright © 2021 Max Mage. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+
+?>
+
+<script>
+    require([
+        'jquery',
+        'mage/url',
+        'Magento_Ui/js/modal/alert'
+    ], function ($, url, alert) {
+        $('body').on('click', '.mm-save-config-button', function (e) {
+            e.preventDefault();
+
+            let $element = $(this).closest('.value').find('select, input, textarea'),
+                data = {};
+
+            data[$(this).data('path')] = getElementData($(this));
+
+            let source = getScopeLevel();
+            data = Object.assign(data, source);
+
+            saveAjax(data);
+        });
+
+        $('body').on('click', '.mm-save-section-config-button', function (e) {
+            e.preventDefault();
+
+            let elements = $(this).closest('.section-config').find('fieldset').find('select, input, textarea'),
+                obj = {};
+
+            elements.each(function (index, element) {
+                obj[$(element).closest('td.value').find('.mm-save-config-button').attr('data-path')] = getElementData($(element));
+            });
+
+            let source = getScopeLevel();
+            obj = Object.assign(obj, source);
+
+            saveAjax(obj);
+        });
+
+        function getElementData($element) {
+            let value = '';
+            if ($element.prop('nodeName') === 'SELECT') {
+                value = $element.val();
+            } else if($element.prop('nodeName') === 'INPUT' || $element.prop('nodeName') === 'TEXTAREA') {
+                value = $element.val();
+            }
+            return value;
+        }
+
+        function getScopeLevel() {
+            let path = window.location.pathname.split('/'),
+            params = {};
+
+            if (path.indexOf('website') !== -1) {
+                path.splice(0, path.indexOf('website'));
+                params = {
+                    'website': path[1]
+                };
+            } else if (path.indexOf('store') !== -1) {
+                path.splice(0, path.indexOf('store'));
+                params = {
+                    'store': path[1]
+                };
+            }
+
+            return params;
+        }
+
+        function saveAjax(data) {
+            var self = this;
+            $.ajax({
+                url: "<?php echo $block->getUrl('maxmage_saveconfig/index/index/') ?>",
+                data: data,
+                type: 'POST',
+                showLoader: true,
+                success: function(response) {
+                    if (response) {
+                        alert({'content': response.message});
+                    }
+                },
+                error: function () {
+                    alert({'content': 'An error occurred!'});
+                }
+            });
+        }
+    })
+</script>

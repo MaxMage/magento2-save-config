@@ -1,0 +1,25 @@
+{
+  "name": "maxmage/magento2-save-config",
+  "description": "Magento 2 module for save system config into env.php file",
+  "type": "magento2-module",
+  "version": "1.0.0",
+  "license": "OSL-3.0",
+  "authors": [
+    {
+      "name": "Max Mage",
+      "email": "maxmagedev@gmail.com"
+    }
+  ],
+  "require": {
+    "php": "~7.1",
+    "magento/framework": "*"
+  },
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "MaxMage\\SaveConfig\\": ""
+    }
+  }
+}
