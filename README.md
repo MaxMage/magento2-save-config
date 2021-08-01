@@ -1,7 +1,6 @@
 # Magento 2 - Save System Config to env.php
 
-Magento 2 module for the Israeli payment gateway [Credit Guard](https://www.creditguard.co.il/?lang=en)
-
+Magento 2 module for save determined system config into the env.php file
 
 
 
